@@ -1,5 +1,5 @@
 import { SET_CURRENT_USER,CLEAR} from '../actions/type';
-import isEmpty from '../service/is-empty';
+import isEmpty from '../services/is-empty';
 
 const initialState = {
     isAuthenticated: false,
@@ -16,7 +16,6 @@ export default function(state = initialState, action ) {
                 user: action.payload
                 
             }
-       
         default: 
             return state;
     }

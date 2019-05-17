@@ -23,7 +23,7 @@ export default class Main extends React.Component {
       return (
         <View style={styles.container}>
           {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
-        {  true ? <AppNavigator /> : <SecondaryAppNavigator />} 
+        {  false ? <AppNavigator /> : <SecondaryAppNavigator />} 
         </View>
       );
     }

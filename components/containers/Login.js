@@ -1,12 +1,13 @@
 import React from 'react';
 
 import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
-// import { Field } from 'redux-form';
+import { Field } from 'redux-form';
 import { connect } from 'react-redux';
-// import { logIn } from '../../redux/actions/user'
+import { logIn } from '../../redux/actions/user'
 
-export default class Login extends React.Component {
+class Login extends React.Component {
     render() {
+        console.log(this.props)
         return (
             <View style={styles.container}>
                 <Text>Login</Text>
@@ -30,10 +31,10 @@ const styles = StyleSheet.create({
         borderColor: '#000'
     }
 });
-/*
-const mapStateToProps = state => ({
 
+const mapStateToProps = state => ({
+    auth: state.auth,
+    errors: state.errors
 });
 
-export default connect( mapStateToProps, LogIn )( Login )
-*/
+export default connect( mapStateToProps, { logIn } )( Login );

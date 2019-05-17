@@ -39,5 +39,4 @@ RegisterStack.navigationOptions = {
 export default createBottomTabNavigator({
   LoginStack,
   RegisterStack
- 
 });
