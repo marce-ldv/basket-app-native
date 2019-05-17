@@ -1,12 +1,19 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import Login from './components/containers/Login';
+import {
+  StyleSheet,
+  View,
+  Platform
+} from 'react-native';
+// import { Provider } from 'react-redux';
+// import store from './redux/store/store';
 
 export default class App extends React.Component {
   render() {
     return (
-      <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
-      </View>
+        <View style={styles.container}>
+          <Login />
+        </View>
     );
   }
 }
