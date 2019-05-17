@@ -7,6 +7,7 @@ import cartItems from './cartReducer';
 import searchItem from './searchReducer';
 import paginationItem from './paginationReducer';
 import getOrders from './orderReducer';
+import { reducer as formReducer } from 'redux-form';
 
 export default combineReducers({
     errors: errorReducer,
@@ -16,5 +17,6 @@ export default combineReducers({
     list:cartItems,
     search:searchItem,
     currentPage:paginationItem,
-    orders:getOrders
+    orders:getOrders,
+    form: formReducer
 });

@@ -1,18 +1,28 @@
 import React from 'react';
 
 import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
-import { Field } from 'redux-form';
+import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import { logIn } from '../../redux/actions/user'
 
 class Login extends React.Component {
+    constructor(props){
+        super(props)
+    }
+    submit = (v) => {
+        console.log('submitting form', v)
+    }
     render() {
-        console.log(this.props)
         return (
             <View style={styles.container}>
-                <Text>Login</Text>
+                <Text>Loginn</Text>
+
+                <Field
+                    name="username"
+                    component={({ input }) => <TextInput {...input} />}
+                />
                 
-                <TouchableOpacity>
+                <TouchableOpacity onPress={this.props.handleSubmit( this.submit ) }>
                     <Text>Submit</Text>
                 </TouchableOpacity>
             </View>
@@ -37,4 +47,4 @@ const mapStateToProps = state => ({
     errors: state.errors
 });
 
-export default connect( mapStateToProps, { logIn } )( Login );
+export default connect( mapStateToProps, { logIn } )( reduxForm( { form: 'loginForm' } )(Login) );
