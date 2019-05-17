@@ -2,9 +2,7 @@ import React from 'react';
 import { Platform } from 'react-native';
 import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
 
- import TabBarIcon from '../TabBarIcon';
-
-
+import TabBarIcon from '../TabBarIcon';
 import Login from '../containers/Login';
 import Register from '../containers/Register';
 
