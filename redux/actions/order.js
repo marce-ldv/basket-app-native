@@ -12,7 +12,7 @@ export const requestOrder = (cart) => dispatch => {
     };
     console.log(array);
     
-    return axios.post('192.168.11.85/order/create_order',{cart:array},config).then(result=>{
+    return axios.post('http://192.168.11.46:3000/order/create_order',{cart:array},config).then(result=>{
         console.log(result);
         dispatch({
             type:CLEAR_CART
@@ -29,7 +29,7 @@ export const getAllOrders =  () => async dispatch => {
     };
     console.log(getProfile());
 
-    await  axios.get('http://localhost:3000/order/all',config).then(result=>{
+    await  axios.get('http://192.168.11.46:3000/order/all',config).then(result=>{
         console.log(result);
 
         dispatch({

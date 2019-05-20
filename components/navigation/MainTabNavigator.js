@@ -1,6 +1,6 @@
 import React from 'react';
 import { Platform } from 'react-native';
-import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
+import { createStackNavigator, createBottomTabNavigator, TouchableWithoutFeedback } from 'react-navigation';
 import TabBarIcon from '../TabBarIcon';
 
 /* import HomeScreen from '../screens/HomeScreen';
@@ -10,8 +10,11 @@ import SettingsScreen from '../screens/SettingsScreen';
 import Cart from '../containers/Cart.js';
 import Category from '../containers/Category';
 import OrderHistory from '../containers/OrderHistory';
-import Search from '../containers/Search';
 import ProductResultScreen from '../containers/ProductResultScreen';
+import Search from '../containers/Search';
+
+import { logoutUser } from '../../redux/actions/user'
+import { connect } from 'react-redux';
 
 const CategoryStack = createStackNavigator({
   Category: Category,
@@ -54,9 +57,25 @@ OrderStack.navigationOptions = {
     />
   ),
 };
+const ProductStack = createStackNavigator({
+  Product: ProductResultScreen,
+});
+
+ProductStack.navigationOptions = {
+  tabBarLabel: 'Product Search',
+  tabBarIcon: ({ focused}) => (
+    <TabBarIcon
+      focused={focused}
+      
+      name={Platform.OS === 'ios' ? 'ios-search' : 'md-search'}
+    />
+  ),
+};
 
 export default createBottomTabNavigator({
   CategoryStack,
+  ProductStack,
   CartStack,
   OrderStack,
+
 });

@@ -1,30 +1,32 @@
 import axios from 'axios'; 
 import jwt_decode from 'jwt-decode'; 
 import { GET_ERRORS,SET_CURRENT_USER,CLEAR} from './type';
+import { SecureStore } from 'expo';
 
-
-export const logIn = ( user,history ) =>  dispatch => {
-
-    axios.post('http://localhost:3000/user/login',{
+export const logIn =  ( user,history ) =>    dispatch => {
+  console.log("LLAMA")
+   axios.post('http://192.168.11.85:3000/user/login',{
 
         email:user.email,
         password:user.password
         
     }).then(result => {
-        
+
+        console.log("ENTRAAA2");
         const token  = result.data.data ;
-        sessionStorage.setItem('user',token); 
-        const decoded = jwt_decode(token);
         console.log(token);
-        history.push('/home');
+        SecureStore.setItemAsync('user', token);
+        const decoded = jwt_decode(token);
         dispatch(setCurrentUser(decoded));
 
     }).catch(err =>{
-        
+      
+        console.log(err);
+        console.log("ERROR");
         dispatch({
-        type: GET_ERRORS,
-        payload: err.response.data.errors
-    });
+          type: GET_ERRORS,
+          payload: err.response.data.errors
+        }); 
     })
 }
 
@@ -53,9 +55,10 @@ export const validateToken = (history) => {
   }
 }
 
-export const getToken = () =>{
-    
-    return sessionStorage.getItem('user'); 
+export const getToken = async () =>{
+  
+    let token = await SecureStore.getItemAsync('user');
+    return token;
 }
 
 export const getProfile = _ => {
@@ -79,14 +82,14 @@ export const loggedIn = () => {
 }
 
 export const register = ( newUser,history ) => dispatch => {
-        return axios.post('http://localhost:3000/user/signup',{
+        return axios.post('http://192.168.11.46:3000/user/signup',{
         name:newUser.name,  
         email:newUser.email,
         password:newUser.password,
         password_confirm:newUser.password_confirm,
         adress:newUser.adress
     }).then(result => {
-        history.push('/login');
+        history.navigate('Login');
     }).catch(err =>{
       dispatch({
         type: GET_ERRORS,
@@ -96,9 +99,9 @@ export const register = ( newUser,history ) => dispatch => {
 
 }
 export const logoutUser = (history) => dispatch => {
-  sessionStorage.removeItem('user');
+  SecureStore.deleteItemAsync('user');
   //setAuthToken(false);
   dispatch({type:CLEAR})
   dispatch(setCurrentUser({}));
-  history.push('/login');
+  //history.navigate('/login');
 }

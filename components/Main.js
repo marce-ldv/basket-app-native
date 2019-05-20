@@ -1,11 +1,13 @@
 import React from 'react';
 
-import { Platform, StatusBar, StyleSheet, View } from 'react-native';
+import { Platform, StatusBar, StyleSheet, View ,Text} from 'react-native';
 import { AppLoading, Asset, Font, Icon } from 'expo';
 import AppNavigator from './navigation/AppNavigator'
 import SecondaryAppNavigator from './navigation/SecondaryAppNavigator';
+import { connect } from 'react-redux'; 
+import authReducer from '../redux/reducers/authReducer';
 
-export default class Main extends React.Component {
+ class Main extends React.Component {
   state = {
     isLoadingComplete: false,
   };
@@ -22,8 +24,9 @@ export default class Main extends React.Component {
     } else {
       return (
         <View style={styles.container}>
+         
           {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
-        {  false ? <AppNavigator /> : <SecondaryAppNavigator />} 
+        {  this.props.auth.isAuthenticated ? <AppNavigator /> : <SecondaryAppNavigator />} 
         </View>
       );
     }
@@ -62,3 +65,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
 });
+const mapStateToProps = (state) => ({
+  auth:state.auth
+})
+
+export default connect(mapStateToProps,null)(Main);
