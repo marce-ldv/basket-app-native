@@ -10,9 +10,7 @@ import { getAllOrders } from '../../redux/actions/order';
     componentDidMount(){
         this.props.getAllOrders();
     }
-    componentDidUpdate(){
-      this.props.getAllOrders();
-    }
+    
     render(){
         
         return (
