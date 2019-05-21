@@ -1,19 +1,20 @@
 import { CLEAR_CART,SET_ORDERS } from './type';
 import axios from 'axios';
 import { getToken,getProfile } from './user';
-export const requestOrder = (cart) => dispatch => {
+export const requestOrder = (cart) => async dispatch => {
     
     let array = cart.map (item => { 
         return {count:item.count, id:item.id}
     })
+    let token = await getToken();
 
     let config = {
-        headers: {'Authorization': 'Bearer ' + getToken()}
+        headers: {'Authorization': 'Bearer ' + token}
     };
-    console.log(array);
     
-    return axios.post('http://192.168.11.46:3000/order/create_order',{cart:array},config).then(result=>{
-        console.log(result);
+    
+    return axios.post('http://192.168.11.85:3000/order/create_order',{cart:array},config).then(result=>{
+       
         dispatch({
             type:CLEAR_CART
         })
@@ -24,13 +25,15 @@ export const requestOrder = (cart) => dispatch => {
 }
 
 export const getAllOrders =  () => async dispatch => {
+    
+    let token = await getToken();
     let config = {
-        headers: {'Authorization': 'Bearer ' + getToken()}
+        headers: {'Authorization': 'Bearer ' + token}
     };
-    console.log(getProfile());
-
-    await  axios.get('http://192.168.11.46:3000/order/all',config).then(result=>{
-        console.log(result);
+    
+    
+    return  axios.get('http://192.168.11.85:3000/order/all',config).then(result=>{
+        
 
         dispatch({
             type:SET_ORDERS,

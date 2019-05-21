@@ -12,6 +12,7 @@ import Category from '../containers/Category';
 import OrderHistory from '../containers/OrderHistory';
 import ProductResultScreen from '../containers/ProductResultScreen';
 import Search from '../containers/Search';
+import Profile from '../containers/Profile';
 
 import { logoutUser } from '../../redux/actions/user'
 import { connect } from 'react-redux';
@@ -72,10 +73,26 @@ ProductStack.navigationOptions = {
   ),
 };
 
+const ProfileStack = createStackNavigator({
+  Profile: Profile,
+});
+
+ProfileStack.navigationOptions = {
+  tabBarLabel: 'Profile',
+  tabBarIcon: ({ focused}) => (
+    <TabBarIcon
+      focused={focused}
+      
+      name={Platform.OS === 'ios' ? 'ios-contact' : 'md-contact'}
+    />
+  ),
+};
+
 export default createBottomTabNavigator({
   CategoryStack,
   ProductStack,
   CartStack,
   OrderStack,
+  ProfileStack
 
 });

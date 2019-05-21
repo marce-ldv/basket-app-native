@@ -13,7 +13,7 @@ export const getProducts = ( category_id ) => async dispatch => {
     return axios.get('http://192.168.11.85:3000/product/search_by_cat/'+category_id,config).then(result=>{
     
         dispatch(setProducts(result.data.data)); 
-        console.log(result.data.data)
+    
     }).catch(err => {
         console.log(err);
         dispatch(setProducts([]));    

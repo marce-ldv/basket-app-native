@@ -113,7 +113,9 @@ const styles = StyleSheet.create({
   title:{
     justifyContent:"center",
     alignItems: "center",
-    color:colors.BLACK
+    color:colors.BLACK,
+    fontSize:20,
+    marginVertical:'5%'
   }
 });
 

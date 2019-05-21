@@ -4,7 +4,7 @@ import { GET_ERRORS,SET_CURRENT_USER,CLEAR} from './type';
 import { SecureStore } from 'expo';
 
 export const logIn =  ( user,history ) =>    dispatch => {
-  console.log("LLAMA")
+  
    axios.post('http://192.168.11.85:3000/user/login',{
 
         email:user.email,
@@ -12,9 +12,7 @@ export const logIn =  ( user,history ) =>    dispatch => {
         
     }).then(result => {
 
-        console.log("ENTRAAA2");
         const token  = result.data.data ;
-        console.log(token);
         SecureStore.setItemAsync('user', token);
         const decoded = jwt_decode(token);
         dispatch(setCurrentUser(decoded));
@@ -33,9 +31,11 @@ export const logIn =  ( user,history ) =>    dispatch => {
 export const restoreLogin = (history,path1,path2 = '/home') => (dispatch) => {
 
   if( loggedIn() ){
+
       const profile = getProfile(); 
       dispatch(setCurrentUser(profile));
       history.push(path2);
+
     } else {
       history.push(path1);
   }
@@ -100,8 +100,9 @@ export const register = ( newUser,history ) => dispatch => {
 }
 export const logoutUser = (history) => dispatch => {
   SecureStore.deleteItemAsync('user');
-  //setAuthToken(false);
+
   dispatch({type:CLEAR})
   dispatch(setCurrentUser({}));
-  //history.navigate('/login');
+  history.navigate('Login')
+
 }
